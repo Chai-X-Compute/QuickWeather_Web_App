@@ -39,7 +39,8 @@ QuickWeather_Web_App/
 ├── index.html
 ├── script.js
 └── style.css
-        
+  ```
+     
 
 ## API Key
 
