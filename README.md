@@ -34,9 +34,9 @@ Check out the live app here:
 ## Project Structure
 
 QuickWeather_Web_App/
-├── README.md        
-├── index.html        
-├── script.js         
+├── README.md
+├── index.html
+├── script.js
 └── style.css         
 
 
