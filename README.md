@@ -33,6 +33,7 @@ Check out the live app here:
 
 ## Project Structure
 
+```bash
 QuickWeather_Web_App/
 ├── README.md
 ├── index.html
