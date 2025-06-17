@@ -34,9 +34,10 @@ Check out the live app here:
 ## Project Structure
 
 QuickWeather_Web_App/
-├── index.html
-├── styles.css
-├── script.js
+├── README.md        
+├── index.html        
+├── script.js         
+└── style.css         
 
 
 ## API Key
