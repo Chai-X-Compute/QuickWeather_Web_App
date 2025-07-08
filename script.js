@@ -1,15 +1,12 @@
-// API Configuration
-const API_KEY = '63cf752c4fbf03de756a26da7df661b1'; // User's OpenWeatherMap API key
+const API_KEY = '63cf752c4fbf03de756a26da7df661b1';
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
-// DOM Elements
 const searchInput = document.getElementById('search-input');
 const searchBtn = document.getElementById('search-btn');
 const themeToggle = document.getElementById('theme-toggle');
 const loadingSpinner = document.getElementById('loading-spinner');
 const errorMessage = document.getElementById('error-message');
 
-// Weather Display Elements
 const cityName = document.getElementById('city-name');
 const date = document.getElementById('date');
 const temperature = document.getElementById('temperature');
@@ -23,11 +20,9 @@ const sunrise = document.getElementById('sunrise');
 const sunset = document.getElementById('sunset');
 const forecastContainer = document.getElementById('forecast-container');
 
-// Unit Toggle
 const unitButtons = document.querySelectorAll('.unit-toggle button');
 let currentUnit = 'celsius';
 
-// Theme
 const body = document.body;
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
@@ -35,11 +30,9 @@ if (savedTheme) {
     themeToggle.checked = savedTheme === 'dark';
 }
 
-// Store latest data for unit toggling
 let latestWeatherData = null;
 let latestForecastData = null;
 
-// Event Listeners
 searchBtn.addEventListener('click', () => {
     const city = searchInput.value.trim();
     console.log('Search button clicked for city:', city);
@@ -72,12 +65,10 @@ unitButtons.forEach(button => {
         unitButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
         currentUnit = button.dataset.unit;
-        // Use stored data for unit conversion
         updateWeatherDisplay(latestWeatherData, latestForecastData);
     });
 });
 
-// Functions
 async function getWeatherByCity(city) {
     try {
         console.log('Fetching weather for city:', city);
@@ -88,7 +79,6 @@ async function getWeatherByCity(city) {
         const forecastData = await fetchForecastData(city);
         console.log('Forecast data received:', forecastData);
         
-        // Store latest data
         latestWeatherData = weatherData;
         latestForecastData = forecastData;
         
@@ -160,9 +150,7 @@ function updateWeatherDisplay(weatherData, forecastData) {
 
     console.log('Updating display with weather data:', weatherData);
 
-    // Update current weather
     cityName.textContent = weatherData.name;
-    // Format date as dd/mm/yy
     const now = new Date();
     const day = String(now.getDate()).padStart(2, '0');
     const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -175,18 +163,15 @@ function updateWeatherDisplay(weatherData, forecastData) {
     weatherDescription.textContent = weatherData.weather[0].description;
     weatherIcon.src = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
 
-    // Update weather details
     const feelsLikeTemp = currentUnit === 'celsius' ? weatherData.main.feels_like : celsiusToFahrenheit(weatherData.main.feels_like);
     feelsLike.textContent = `${Math.round(feelsLikeTemp)}°${currentUnit === 'celsius' ? 'C' : 'F'}`;
     humidity.textContent = `${weatherData.main.humidity}%`;
     wind.textContent = `${weatherData.wind.speed} m/s`;
     pressure.textContent = `${weatherData.main.pressure} hPa`;
 
-    // Update sun times
     sunrise.textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString();
     sunset.textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString();
 
-    // Update forecast
     updateForecast(forecastData);
 }
 
